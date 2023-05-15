@@ -10,4 +10,5 @@
 #include <stdlib.h>
 #include <signal.h>
 
+void splitWord(char **arg, char *str);
 #endif

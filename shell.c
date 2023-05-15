@@ -24,12 +24,11 @@ int main(__attribute__ ((unused)) int argc,
 {
 	char *buffer;
 	size_t len = 1024;
-	char *arg[2];
+	char *arg[50];
 	int status;
 	pid_t child;
 
-	signal(SIGINT, handleExit);
-	arg[1] = NULL;
+	/*signal(SIGINT, handleExit);*/
 	buffer = malloc(1024 * sizeof(char *));
 	if (buffer == NULL)
 	{
@@ -39,7 +38,11 @@ int main(__attribute__ ((unused)) int argc,
 	{
 		write(1, "($) ", 4);
 		if (getline(&buffer, &len, stdin) == EOF)
+		{
+			write(1, "\n", 1);
 			break;
+		}
+
 		child = fork();
 		if (child < 0)
 		{
@@ -49,14 +52,14 @@ int main(__attribute__ ((unused)) int argc,
 		wait(&status);
 		if (child == 0)
 		{
-			arg[0] = strtok(buffer, "\n");
+			splitWord(arg, strtok(buffer, "\n"));
 			if (execve(arg[0], arg, NULL) < 1)
 			{
+				perror("Error:");
 				return (1);
 			}
 		}
 	}
 	free(buffer);
-
 	return (0);
 }
