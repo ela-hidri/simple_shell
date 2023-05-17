@@ -26,6 +26,7 @@ int main(__attribute__ ((unused)) int argc,
 	size_t len = 1024;
 	char *arg[50];
 	int status;
+	char *token;
 	pid_t child;
 
 	/*signal(SIGINT, handleExit);*/
@@ -42,7 +43,12 @@ int main(__attribute__ ((unused)) int argc,
 			write(1, "\n", 1);
 			break;
 		}
-
+		token = strtok(buffer, " ");
+		if (strcmp(token, "exit\n")==0)
+		{
+			free(buffer);
+			exit(1);
+		}
 		child = fork();
 		if (child < 0)
 		{
