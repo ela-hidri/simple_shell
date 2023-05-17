@@ -11,4 +11,8 @@
 #include <signal.h>
 
 void splitWord(char **arg, char *str);
+int _strcmp(const char *str1, const char *str2);
+int  _strlen(const char *str);
+char *_strdup(const char *str);
+int _strncmp(const char *str1, const char *str2, size_t n);
 #endif
