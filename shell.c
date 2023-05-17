@@ -28,6 +28,7 @@ int main(__attribute__ ((unused)) int argc,
 	int status;
 	char *token;
 	pid_t child;
+	int i;
 
 	/*signal(SIGINT, handleExit);*/
 	buffer = malloc(1024 * sizeof(char *));
@@ -59,7 +60,16 @@ int main(__attribute__ ((unused)) int argc,
 		if (child == 0)
 		{
 			splitWord(arg, strtok(buffer, "\n"));
-			if (execve(arg[0], arg, NULL) < 1)
+			if(strcmp(arg[0], "env") == 0 )
+			{
+				i = 0;
+				while(env[i])
+				{
+					printf("%s\n", env[i]);
+					i++;
+				}
+			}
+			else if(execve(arg[0], arg, NULL) < 1)
 			{
 				perror("Error:");
 				return (1);
