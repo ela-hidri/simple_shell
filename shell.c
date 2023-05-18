@@ -1,13 +1,13 @@
 #include "shell.h"
 /**
- * handleExit - handles the CTRL+c
+ * handleexit - handles the CTRL+c
  * @sig: signal
  *
  * Return: nothing
  */
-void handleExit(int sig)
+void haandleexit(int sig)
 {
-	signal(sig, handleExit);
+	signal(sig, haandleexit);
 }
 /**
  * main - UNIX command line interpreter
@@ -25,12 +25,8 @@ int main(__attribute__ ((unused)) int argc,
 	char *buffer;
 	size_t len = 1024;
 	char *arg[50];
-	int status;
-	char *token;
-	pid_t child;
-	int i;
-
-	/*signal(SIGINT, handleExit);*/
+	
+	signal(SIGINT, haandleexit);
 	buffer = malloc(1024 * sizeof(char *));
 	if (buffer == NULL)
 	{
@@ -44,37 +40,13 @@ int main(__attribute__ ((unused)) int argc,
 			write(1, "\n", 1);
 			break;
 		}
-		token = strtok(buffer, " ");
-		if (strcmp(token, "exit\n")==0)
+		splitWord(arg, strtok(buffer, "\n"));
+		if (strcmp(arg[0], "exit")==0)
 		{
 			free(buffer);
 			exit(1);
-		}
-		child = fork();
-		if (child < 0)
-		{
-			perror("Error:");
-			return (1);
-		}
-		wait(&status);
-		if (child == 0)
-		{
-			splitWord(arg, strtok(buffer, "\n"));
-			if(strcmp(arg[0], "env") == 0 )
-			{
-				i = 0;
-				while(env[i])
-				{
-					printf("%s\n", env[i]);
-					i++;
-				}
-			}
-			else if(execve(arg[0], arg, NULL) < 1)
-			{
-				perror("Error:");
-				return (1);
-			}
-		}
+                }
+		execute(arg);
 	}
 	free(buffer);
 	return (0);
