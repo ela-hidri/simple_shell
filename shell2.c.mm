@@ -46,8 +46,11 @@ int main(__attribute__ ((unused)) int argc,
 			break;
 		}
 		 splitWord(arg, strtok(buffer, "\n"));
-                cmd = get_location(arg[0]);
-                if (cmd != NULL)
+		 if (arg[0] != NULL)
+			 cmd = get_location(arg[0]);
+		 else 
+			 cmd = arg[0];
+		if (cmd != NULL)
                 {
                         child = fork();
                 }
@@ -69,7 +72,7 @@ int main(__attribute__ ((unused)) int argc,
 		wait(&status);
 		if (child == 0)
 		{
-			if(strcmp(arg[0], "env") == 0 )
+			if(strcmp(cmd, "env") == 0 )
 			{
 				i = 0;
 				while(env[i])
@@ -78,10 +81,9 @@ int main(__attribute__ ((unused)) int argc,
 					i++;
 				}
 			}
-			else if(execve(arg[0], arg, NULL) < 1)
+			else if(execve(cmd, arg, env) < 1)
 			{
 				perror("Error:");
-				return (1);
 			}
 		}
 	}

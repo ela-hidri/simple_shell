@@ -19,7 +19,7 @@ int _strncmp(const char *str1, const char *str2, size_t n);
 
 void splitWord(char **arg, char *str);
 void print_env();
-char **_getenv(char *val);
+char *_getenv(char *val);
 void refactcmd(char *path, char *path_token, char *cmd);
 void execute(char *arg[]);
 char *get_location(char *cmd);

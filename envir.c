@@ -5,17 +5,19 @@
  *
  * Return: pointer to path else NULL
  */
-char **_getenv(char *val)
+char *_getenv(char *val)
 {
-	int i = 0;
+	char **env = environ;
+	char *path;
 
-	while (environ[i])
+	while (*env)
 	{
-		if (strcmp(environ[i], val) == 0)
+		if (strncmp(*env, val, _strlen(val)) == 0)
 		{
-			return (&environ[i]);
+			path = *env + _strlen(val) + 1;
+			return (path);
 		}
-		i++;
+		env++;
 	}
 	return (NULL);
 }
@@ -30,7 +32,8 @@ void print_env()
 
 	while(environ[i])
 	{
-		printf("%s\n", environ[i]);
+		write(1, environ[i], _strlen(environ[i]));
 		i++;
+		write(1, "\n", _strlen("\n"));
 	}
 }

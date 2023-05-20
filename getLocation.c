@@ -14,7 +14,7 @@ char *get_location(char *cmd)
 	{
 		return (cmd);
 	}
-	path = getenv("PATH");
+	path = _getenv("PATH");
 	if (path != NULL)
 	{
 		cp_path = strdup(path);
@@ -22,6 +22,8 @@ char *get_location(char *cmd)
 		while (token != NULL)
 		{
 			cmd_path = malloc((strlen(cmd) + strlen(token) + 2) * sizeof(char));
+			if (cmd_path == NULL)
+				exit(1);
 			refactcmd(cmd_path, token, cmd);
 			if (stat(cmd_path, &st) == 0)
 			{

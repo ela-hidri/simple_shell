@@ -10,8 +10,10 @@ void execute(char *arg[])
 	int status;
 	pid_t child;
 	char *cmd;
-	
-	cmd = get_location(arg[0]);
+	if (arg[0] != NULL)
+		cmd = get_location(arg[0]);
+	else 
+		cmd = arg[0];
 	if (cmd != NULL)
 	{
 		child = fork();
