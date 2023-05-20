@@ -25,8 +25,9 @@ int main(__attribute__ ((unused)) int argc,
 	char *buffer;
 	size_t len = 1024;
 	char *arg[50];
+	char *nexttab;
 	
-	signal(SIGINT, haandleexit);
+	/*signal(SIGINT, haandleexit);*/
 	buffer = malloc(1024 * sizeof(char *));
 	if (buffer == NULL)
 	{
@@ -40,14 +41,28 @@ int main(__attribute__ ((unused)) int argc,
 			write(1, "\n", 1);
 			break;
 		}
-		splitWord(arg, strtok(buffer, "\n"));
-		if (strcmp(arg[0], "exit")==0)
+		nexttab = buffer;
+		while(*nexttab != '\t' && *nexttab != '\n' && *nexttab != '\0')
+		{
+			nexttab++;
+		}
+		if (*nexttab == '\t' || *nexttab == '\n' || *nexttab == '\0')
+			nexttab = buffer+ len;
+		splitWord(arg, strtok(buffer, nexttab));
+		if(arg[0]== NULL ||_strcmp(arg[0],"\t")== 0|| _strcmp(arg[0], "\n") == 0 )
+		{	
+			continue;
+		}
+		if (_strcmp(arg[0], "exit")==0)
 		{
 			free(buffer);
 			exit(1);
-                }
-		execute(arg);
+		}
+		/*execute(arg);*/
+		
+
 	}
+
 	free(buffer);
 	return (0);
 }
