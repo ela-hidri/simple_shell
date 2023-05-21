@@ -5,9 +5,9 @@
  *
  * Return: nothing
  */
-void haandleexit(int sig)
+void handleexit(int sig)
 {
-	signal(sig, haandleexit);
+	signal(sig, handleexit);
 }
 /**
  * main - UNIX command line interpreter
@@ -25,6 +25,7 @@ int main(__attribute__ ((unused)) int argc,
 	char *buffer;
 	size_t len = 1024;
 	char *arg[50];
+<<<<<<< HEAD
 	int numArgs;
         char** cmdargs;
         int i;
@@ -32,6 +33,10 @@ int main(__attribute__ ((unused)) int argc,
        
 
 	/*signal(SIGINT, haandleexit);*/
+=======
+
+	signal(SIGINT, handleexit);
+>>>>>>> 80cf584e032ef5a41f09fb71a80298c53aa2e6ae
 	buffer = malloc(1024 * sizeof(char *));
 	if (buffer == NULL)
 	{
@@ -48,10 +53,11 @@ int main(__attribute__ ((unused)) int argc,
 		splitWord(arg, strtok(buffer, "\n"));
 		if (arg[0] != NULL)
 		{
-		if (_strcmp(arg[0], "exit")==0)
+		if (_strcmp(arg[0], "exit") == 0)
 		{
 			free(buffer);
 			exit(1);
+<<<<<<< HEAD
                 }
 		else if (_strcmp(arg[0], "echo") == 0)
 		{	
@@ -76,6 +82,12 @@ int main(__attribute__ ((unused)) int argc,
 			execute(arg);
 		} 
 	} 
+=======
+		}
+		execute(arg);
+		}
+	}
+>>>>>>> 80cf584e032ef5a41f09fb71a80298c53aa2e6ae
 	free(buffer);
 	return (0);
 }

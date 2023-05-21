@@ -22,15 +22,15 @@ char *_getenv(char *val)
 	return (NULL);
 }
 /**
- * printf_env - print all enviroment Values
+ * print_env - print all enviroment Values
  *
  * Return: nothing
  */
-void print_env()
+void print_env(void)
 {
 	int i = 0;
 
-	while(environ[i])
+	while (environ[i])
 	{
 		write(1, environ[i], _strlen(environ[i]));
 		i++;
