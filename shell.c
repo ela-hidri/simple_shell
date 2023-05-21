@@ -25,8 +25,13 @@ int main(__attribute__ ((unused)) int argc,
 	char *buffer;
 	size_t len = 1024;
 	char *arg[50];
-	
-	signal(SIGINT, haandleexit);
+	int numArgs;
+        char** cmdargs;
+        int i;
+        char* argwithoutquotes;
+       
+
+	/*signal(SIGINT, haandleexit);*/
 	buffer = malloc(1024 * sizeof(char *));
 	if (buffer == NULL)
 	{
@@ -48,9 +53,29 @@ int main(__attribute__ ((unused)) int argc,
 			free(buffer);
 			exit(1);
                 }
-		execute(arg);
-		}
-	}
+		else if (_strcmp(arg[0], "echo") == 0)
+		{	
+			
+			numArgs = 0;
+                        cmdargs = malloc((sizeof(char*)*2));
+                        cmdargs[0] = arg[0];
+                        numArgs++;
+                        for ( i = 1; arg[i] != NULL; i++)
+                        {
+                                argwithoutquotes = strdup(remove_quotes(arg[i]));
+                                cmdargs = realloc(cmdargs, (sizeof(char*) * (numArgs + 2)));
+                                cmdargs[numArgs] = argwithoutquotes;
+                                numArgs++;
+                        }
+			cmdargs[numArgs] = NULL;
+			execute(cmdargs);
+                        
+                       
+		} 
+		else
+			execute(arg);
+		} 
+	} 
 	free(buffer);
 	return (0);
 }

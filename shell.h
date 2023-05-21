@@ -17,6 +17,7 @@ int  _strlen(const char *str);
 char *_strdup(const char *str);
 int _strncmp(const char *str1, const char *str2, size_t n);
 
+char *remove_quotes(const char* str);
 void splitWord(char **arg, char *str);
 void print_env();
 char *_getenv(char *val);
