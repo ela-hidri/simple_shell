@@ -5,9 +5,9 @@
  *
  * Return: nothing
  */
-void haandleexit(int sig)
+void handleexit(int sig)
 {
-	signal(sig, haandleexit);
+	signal(sig, handleexit);
 }
 /**
  * main - UNIX command line interpreter
@@ -25,8 +25,8 @@ int main(__attribute__ ((unused)) int argc,
 	char *buffer;
 	size_t len = 1024;
 	char *arg[50];
-	
-	signal(SIGINT, haandleexit);
+
+	signal(SIGINT, handleexit);
 	buffer = malloc(1024 * sizeof(char *));
 	if (buffer == NULL)
 	{
@@ -43,11 +43,11 @@ int main(__attribute__ ((unused)) int argc,
 		splitWord(arg, strtok(buffer, "\n"));
 		if (arg[0] != NULL)
 		{
-		if (_strcmp(arg[0], "exit")==0)
+		if (_strcmp(arg[0], "exit") == 0)
 		{
 			free(buffer);
 			exit(1);
-                }
+		}
 		execute(arg);
 		}
 	}
