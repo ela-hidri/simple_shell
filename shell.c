@@ -34,7 +34,6 @@ int main(__attribute__ ((unused)) int argc,
 	}
 	while (1)
 	{
-		write(1, "($) ", 4);
 		if (getline(&buffer, &len, stdin) == EOF)
 		{
 			write(1, "\n", 1);
