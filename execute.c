@@ -31,11 +31,7 @@ void execute(char *arg[])
 	wait(&status);
 	if (child == 0)
 	{
-<<<<<<< HEAD
-		if(_strcmp(arg[0], "env") == 0 )
-=======
 		if (_strcmp(arg[0], "env") == 0)
->>>>>>> 80cf584e032ef5a41f09fb71a80298c53aa2e6ae
 		{
 			print_env();
 		}
