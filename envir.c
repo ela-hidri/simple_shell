@@ -29,11 +29,12 @@ char *_getenv(char *val)
 void print_env(void)
 {
 	int i = 0;
+	char **env = environ;
 
 	while (environ[i])
 	{
-		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
-		i++;
+		write(STDOUT_FILENO, (const void *)env[i], _strlen(env[i]));
 		write(STDOUT_FILENO, "\n", _strlen("\n"));
+		i++;
 	}
 }

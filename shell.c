@@ -44,12 +44,12 @@ int main(__attribute__ ((unused)) int argc,
 		splitWord(arg, strtok(buffer, "\n"));
 		if (arg[0] != NULL)
 		{
-		if (_strcmp(arg[0], "exit") == 0)
-		{
-			free(buffer);
-			exit(1);
-		}
-		execute(arg);
+			if (_strcmp(arg[0], "exit") == 0)
+			{
+				free(buffer);
+				exit(0);
+			}
+			execute(arg);
 		}
 	}
 	free(buffer);
