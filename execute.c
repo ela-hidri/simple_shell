@@ -30,20 +30,17 @@ void execute(char *arg[])
 	wait(&status);
 	if (child == 0)
 	{
-		if (_strcmp(arg[0], "env") == 0)
+		if (execve(cmd, arg, environ) < 1)
 		{
-			print_env();
-		}
-
-		else
-		{
-			if (execve(cmd, arg, environ) < 1)
-			{
-				perror(cmd);
-				exit(1);
-			}
+			perror(cmd);
+			exit(1);
 		}
 		free(cmd);
+	}
+	else
+	{
+		if (cmd != NULL)
+			free(cmd);
 	}
 }
 

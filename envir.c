@@ -12,10 +12,10 @@ char *_getenv(char *val)
 
 	while (*env)
 	{
-		if (strncmp(*env, val, _strlen(val)) == 0)
+		if (_strncmp(*env, val, _strlen(val)) == 0)
 		{
 			path = *env + _strlen(val) + 1;
-			return (path);
+			return (path + _strlen(val) + 1);
 		}
 		env++;
 	}
@@ -31,7 +31,7 @@ void print_env(void)
 	int i = 0;
 	char **env = environ;
 
-	while (environ[i])
+	while (env[i])
 	{
 		write(STDOUT_FILENO, (const void *)env[i], _strlen(env[i]));
 		write(STDOUT_FILENO, "\n", _strlen("\n"));

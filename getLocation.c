@@ -21,7 +21,7 @@ char *get_location(char *cmd)
 		token = strtok(cp_path, ":");
 		while (token != NULL)
 		{
-			cmd_path = malloc((strlen(cmd) + strlen(token) + 2) * sizeof(char));
+			cmd_path = malloc((_strlen(cmd) + _strlen(token) + 2) * sizeof(char));
 			if (cmd_path == NULL)
 				exit(1);
 			refactcmd(cmd_path, token, cmd);
