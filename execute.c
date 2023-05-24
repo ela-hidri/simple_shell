@@ -5,7 +5,7 @@
  *
  * Return: nothing
  */
-void execute(char *cmd, char *arg[])
+void execute(char *cmd, char *arg[], char *av)
 {
 	int status;
 	pid_t child;
@@ -16,13 +16,12 @@ void execute(char *cmd, char *arg[])
 		if (child < 0)
 		{
 			perror(cmd);
-		
 		}
 		if (child == 0)
 		{
-			
 			execve(cmd, arg, environ);
-			perror(cmd);
+			perror(_getenv("_"));
+			exit(127);
 			free(cmd);
 		}
 		else
@@ -33,6 +32,7 @@ void execute(char *cmd, char *arg[])
 	else
 	{
 		free(cmd);
-		perror(cmd);
+		perror(av);
+		exit(127);
 	}
 }

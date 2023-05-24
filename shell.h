@@ -22,6 +22,6 @@ void splitWord(char **arg, char *str);
 void print_env(void);
 char *_getenv(char *val);
 void refactcmd(char *path, char *path_token, char *cmd);
-void execute(char *cmd, char *arg[]);
+void execute(char *cmd, char *arg[], char *av);
 char *get_location(char *cmd);
 #endif

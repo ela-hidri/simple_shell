@@ -20,7 +20,7 @@ void handleexit(int sig)
  * Return: success (alwayas)
  */
 int main(__attribute__ ((unused)) int argc,
-		__attribute__ ((unused))char **argv,
+		__attribute__ ((unused))char **av,
 		__attribute__ ((unused)) char **env)
 {
 	char *buffer;
@@ -58,7 +58,7 @@ int main(__attribute__ ((unused)) int argc,
                 		cmd = get_location(arg[0]);
         		else
                 		cmd = arg[0];
-			execute(cmd, arg);
+			execute(cmd, arg, av[0]);
 			}
 	}
 	free(buffer);
