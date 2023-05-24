@@ -5,37 +5,32 @@
  *
  * Return: nothing
  */
-void execute(char *arg[])
+void execute(char *cmd, char *arg[])
 {
 	int status;
 	pid_t child;
-	char *cmd;
-
-	if (arg[0] != NULL)
-		cmd = get_location(arg[0]);
-	else
-		cmd = arg[0];
-	if (cmd != NULL)
+	
+	if (cmd && access(cmd, F_OK | X_OK) == 0)
 	{
 		child = fork();
+		if (child < 0)
+		{
+			perror(cmd);
+		}
+		if (child == 0)
+		{
+			execve(cmd, arg, environ);
+			perror(cmd);
+			free(cmd);
+		}
+		else
+		{
+			wait(&status);
+		}
 	}
 	else
 	{
-		perror(cmd);
-	}
-	if (child < 0)
-	{
-		perror(cmd);
-	}
-	wait(&status);
-	if (child == 0)
-	{
-		if (execve(cmd, arg, environ) < 1)
-		{
-			perror(cmd);
-			exit(1);
-		}
 		free(cmd);
+		perror(cmd);
 	}
 }
-

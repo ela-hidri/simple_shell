@@ -26,6 +26,7 @@ int main(__attribute__ ((unused)) int argc,
 	char *buffer;
 	size_t len = 1024;
 	char *arg[50];
+	char *cmd = NULL;
 
 	signal(SIGINT, handleexit);
 	buffer = malloc(1024 * sizeof(char *));
@@ -35,12 +36,11 @@ int main(__attribute__ ((unused)) int argc,
 	}
 	while (1)
 	{
+		cmd = NULL;
 		if (isatty(STDIN_FILENO) == 1 && isatty(STDOUT_FILENO) == 1)
 			write(STDIN_FILENO, "# ", 2);
 		if (getline(&buffer, &len, stdin) < 0)
-		{
 			break;
-		}
 		splitWord(arg, strtok(buffer, "\n"));
 		if (arg[0] != NULL)
 		{
@@ -49,8 +49,17 @@ int main(__attribute__ ((unused)) int argc,
 				free(buffer);
 				exit(0);
 			}
-			execute(arg);
-		}
+			 if (_strcmp(arg[0], "env") == 0)
+        		{
+                		print_env();
+                		continue ;
+        		}
+        		if (arg[0] != NULL)
+                		cmd = get_location(arg[0]);
+        		else
+                		cmd = arg[0];
+			execute(cmd, arg);
+			}
 	}
 	free(buffer);
 	return (0);

@@ -7,8 +7,9 @@
  */
 char *get_location(char *cmd)
 {
-	char *path, *cp_path, *token, *cmd_path;
+	char *path, *cp_path, *token, *cmd_path = NULL;
 	struct stat st;
+	char *suspect = NULL;
 
 	if (stat(cmd, &st) == 0)
 	{
@@ -21,20 +22,20 @@ char *get_location(char *cmd)
 		token = strtok(cp_path, ":");
 		while (token != NULL)
 		{
-			cmd_path = malloc((_strlen(cmd) + _strlen(token) + 2) * sizeof(char));
+			suspect = _strdup(token);
+			cmd_path = malloc((_strlen(cmd) + _strlen(suspect) + 2) * sizeof(char));
 			if (cmd_path == NULL)
 				exit(1);
-			refactcmd(cmd_path, token, cmd);
+			refactcmd(cmd_path, suspect, cmd);
+			free(suspect);
 			if (stat(cmd_path, &st) == 0)
 			{
 				free(cp_path);
 				return (cmd_path);
 			}
-			else
-			{
-				free(cmd_path);
-				token = strtok(NULL, ":");
-			}
+			free(cmd_path);
+			cmd_path = NULL;
+			token = strtok(NULL, ":");
 		}
 		free(cp_path);
 	}
