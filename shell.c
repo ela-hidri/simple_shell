@@ -7,8 +7,8 @@
  */
 void handleexit(int sig)
 {
-	write(1, "\n", 2);
 	signal(sig, handleexit);
+	write(STDIN_FILENO, "\n# ", 3);
 }
 /**
  * main - UNIX command line interpreter
@@ -35,10 +35,10 @@ int main(__attribute__ ((unused)) int argc,
 	}
 	while (1)
 	{
-		write(1, "# ", 2);
-		if (getline(&buffer, &len, stdin) == EOF)
+		if (isatty(STDIN_FILENO) == 1 && isatty(STDOUT_FILENO) == 1)
+			write(STDIN_FILENO, "# ", 2);
+		if (getline(&buffer, &len, stdin) < 0)
 		{
-			write(1, "\n", 1);
 			break;
 		}
 		splitWord(arg, strtok(buffer, "\n"));

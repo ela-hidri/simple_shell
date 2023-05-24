@@ -21,12 +21,11 @@ void execute(char *arg[])
 	}
 	else
 	{
-		perror("Error:");
+		perror(cmd);
 	}
 	if (child < 0)
 	{
-		perror("Error:");
-		exit(1);
+		perror(cmd);
 	}
 	wait(&status);
 	if (child == 0)
@@ -40,11 +39,11 @@ void execute(char *arg[])
 		{
 			if (execve(cmd, arg, environ) < 1)
 			{
-				perror("Error:");
+				perror(cmd);
 				exit(1);
 			}
 		}
+		free(cmd);
 	}
-	free(cmd);
 }
 
