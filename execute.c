@@ -37,10 +37,5 @@ void execute(char *arg[])
 		}
 		free(cmd);
 	}
-	else
-	{
-		if (cmd != NULL)
-			free(cmd);
-	}
 }
 
