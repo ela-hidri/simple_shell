@@ -25,7 +25,7 @@ char *get_location(char *cmd)
 			suspect = _strdup(token);
 			cmd_path = malloc((_strlen(cmd) + _strlen(suspect) + 2) * sizeof(char));
 			if (cmd_path == NULL)
-				exit(1);
+				exit(127);
 			refactcmd(cmd_path, suspect, cmd);
 			free(suspect);
 			if (stat(cmd_path, &st) == 0)
