@@ -20,8 +20,7 @@ void execute(char *cmd, char *arg[], char *av)
 		if (child == 0)
 		{
 			execve(cmd, arg, environ);
-			perror(_getenv("_"));
-			exit(127);
+			perror(cmd);
 			free(cmd);
 		}
 		else
