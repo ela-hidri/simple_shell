@@ -35,10 +35,7 @@ void execute(char *cmd, char *arg[], char *av)
 	}
 	else
 	{
-		if (errno == EACCES)
-			r = 126;
 		free(cmd);
 		perror(av);
-		_exit(r);
 	}
 }
