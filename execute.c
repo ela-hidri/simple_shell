@@ -11,7 +11,6 @@ void execute(char *cmd, char *arg[], char *av)
 {
 	int status;
 	pid_t child;
-	int r = 0;
 
 	if (cmd && access(cmd, F_OK | X_OK) == 0)
 	{
