@@ -12,7 +12,7 @@ void handleexit(int sig)
 }
 /**
  * main - UNIX command line interpreter
- * @argv: argument vector
+ * @av: argument vector
  * @argc: argument count
  * @env: environment argument
  *
@@ -49,17 +49,17 @@ int main(__attribute__ ((unused)) int argc,
 				free(buffer);
 				exit(0);
 			}
-			 if (_strcmp(arg[0], "env") == 0)
-        		{
-                		print_env();
-                		continue ;
-        		}
-        		if (arg[0] != NULL)
-                		cmd = get_location(arg[0]);
-        		else
-                		cmd = arg[0];
-			execute(cmd, arg, av[0]);
+			if (_strcmp(arg[0], "env") == 0)
+			{
+				print_env();
+				continue;
 			}
+			if (arg[0] != NULL)
+				cmd = get_location(arg[0]);
+			else
+				cmd = arg[0];
+			execute(cmd, arg, av[0]);	
+		}
 	}
 	free(buffer);
 	return (0);

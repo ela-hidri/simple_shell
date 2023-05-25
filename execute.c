@@ -2,6 +2,8 @@
 /**
  * execute - handle command execution
  * @arg: array of command
+ * @cmd: command
+ * @av: name of file
  *
  * Return: nothing
  */
@@ -9,7 +11,7 @@ void execute(char *cmd, char *arg[], char *av)
 {
 	int status;
 	pid_t child;
-	
+
 	if (cmd && access(cmd, F_OK | X_OK) == 0)
 	{
 		child = fork();
@@ -19,9 +21,11 @@ void execute(char *cmd, char *arg[], char *av)
 		}
 		if (child == 0)
 		{
-			execve(cmd, arg, environ);
-			perror(cmd);
-			free(cmd);
+			if (execve(cmd, arg, environ) < 0)
+			{
+				perror(av);
+				free(cmd);
+			}
 		}
 		else
 		{
@@ -32,6 +36,5 @@ void execute(char *cmd, char *arg[], char *av)
 	{
 		free(cmd);
 		perror(av);
-		exit(127);
 	}
 }
